@@ -5,8 +5,9 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IMagnetDal:IEntityRepository<Magnet>
+    public interface ICategoryDal:IEntityRepository<Category>
     {
 
     }
 }
+ 

@@ -21,5 +21,15 @@ namespace Business.Concrete
             //iş kodları
             return _magnetDal.GetAll();
         }
+
+        public List<Magnet> GetAllByCategoryId(int categoryId)
+        {
+            return _magnetDal.GetAll(m=>m.CategoryId==categoryId);
+        }
+
+        public List<Magnet> GetByPrice(decimal min, decimal max)
+        {
+            return _magnetDal.GetAll(m=>m.Price>=min && m.Price<=max);
+        }
     }
 }

@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
@@ -33,9 +34,19 @@ namespace DataAccess.Concrete.InMemory
             _magnets.Remove(magnetToDelete);
         }
 
+        public Magnet Get(Expression<Func<Magnet, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Magnet> GetAll()
         {
             return _magnets;
+        }
+
+        public List<Magnet> GetAll(Expression<Func<Magnet, bool>> filter = null)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Magnet> GetAllByCategory(int categoryId)
