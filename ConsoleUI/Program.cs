@@ -9,13 +9,28 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            MagnetManager magnetManager = new MagnetManager(new EfMagnetDal());
+            MagnetTest();
+            //CategoryTest();
+        }
 
-            foreach (var magnet in magnetManager.GetByPrice(10,20))
+        private static void CategoryTest()
+        {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+
+            foreach (var category in categoryManager.GetAll())
             {
-                Console.WriteLine(magnet.Text);
+                Console.WriteLine(category.CategoryName);
             }
         }
 
+        private static void MagnetTest()
+        {
+            MagnetManager magnetManager = new MagnetManager(new EfMagnetDal());
+
+            foreach (var magnet in magnetManager.GetMagnetDetails())
+            {
+                Console.WriteLine(magnet.Text+" "+magnet.Price+" "+magnet.CategoryName+" "+magnet.ColorName+" ");
+            }
+        }
     }
 }

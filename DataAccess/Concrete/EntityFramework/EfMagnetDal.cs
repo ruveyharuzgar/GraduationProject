@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,51 +11,26 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfMagnetDal : IMagnetDal
+    public class EfMagnetDal : EfEntityRepositoryBase<Magnet, GraduationDbContext>, IMagnetDal
     {
-        public void Add(Magnet entity)
-        {
-            using (GraduationDbContext context = new GraduationDbContext())
-            {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Magnet entity)
-        {
-            using (GraduationDbContext context = new GraduationDbContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
-
-        public Magnet Get(Expression<Func<Magnet, bool>> filter)
+        public List<MagnetDetailDto> GetMagnetDetails()
         {
             using (GraduationDbContext context=new GraduationDbContext())
             {
-                return context.Set<Magnet>().SingleOrDefault(filter);
-            }
-        }
-
-        public List<Magnet> GetAll(Expression<Func<Magnet, bool>> filter = null)
-        {
-            using (GraduationDbContext context=new GraduationDbContext())
-            {
-                return filter == null ? context.Set<Magnet>().ToList() : context.Set<Magnet>().Where(filter).ToList();
-            }
-        }
-
-        public void Update(Magnet entity)
-        {
-            using (GraduationDbContext context = new GraduationDbContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
+                var result = from m in context.Magnets
+                             join ca in context.Categories
+                             on m.CategoryId equals ca.CategoryId
+                             join co in context.Colors
+                             on m.ColorId equals co.ColorId
+                             select new MagnetDetailDto
+                             {
+                                 MagnetId=m.Id,
+                                 Price=m.Price,
+                                 Text=m.Text,
+                                 CategoryName=ca.CategoryName,
+                                 ColorName=co.ColorName
+                             };
+                return result.ToList();
             }
         }
     }

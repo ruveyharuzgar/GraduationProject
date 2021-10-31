@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +31,11 @@ namespace Business.Concrete
         public List<Magnet> GetByPrice(decimal min, decimal max)
         {
             return _magnetDal.GetAll(m=>m.Price>=min && m.Price<=max);
+        }
+
+        public List<MagnetDetailDto> GetMagnetDetails()
+        {
+            return _magnetDal.GetMagnetDetails();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,12 @@ namespace DataAccess.Concrete.InMemory
         {
             return _magnets.Where(m => m.CategoryId == categoryId).ToList();
         }
+
+        public List<MagnetDetailDto> GetMagnetDetails()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Magnet magnet)
         {
             Magnet magnetToUpdate;
