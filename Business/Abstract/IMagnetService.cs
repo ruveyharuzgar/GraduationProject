@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using Entities.Dtos;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,11 @@ namespace Business.Abstract
 {
     public interface IMagnetService
     {
-        List<Magnet> GetAll();
-        List<Magnet> GetAllByCategoryId(int categoryId);
-        List<Magnet> GetByPrice(decimal min, decimal max);
-        List<MagnetDetailDto> GetMagnetDetails();
+        IDataResult<List<Magnet>> GetAll();
+        IDataResult<List<Magnet>> GetAllByCategoryId(int categoryId);
+        IDataResult<List<Magnet>> GetByPrice(decimal min, decimal max);
+        IDataResult<List<MagnetDetailDto>> GetMagnetDetails();
+        IDataResult<Magnet> GetById(int magnetId);
+        IResult Add(Magnet magnet);
     }
 }

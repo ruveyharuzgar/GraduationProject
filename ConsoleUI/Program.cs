@@ -27,9 +27,18 @@ namespace ConsoleUI
         {
             MagnetManager magnetManager = new MagnetManager(new EfMagnetDal());
 
-            foreach (var magnet in magnetManager.GetMagnetDetails())
+            var result = magnetManager.GetMagnetDetails();
+
+            if (result.Success==true)
             {
-                Console.WriteLine(magnet.Text+" "+magnet.Price+" "+magnet.CategoryName+" "+magnet.ColorName+" ");
+                foreach (var magnet in result.Data)
+                {
+                    Console.WriteLine(magnet.Text + " " + magnet.Price + " " + magnet.CategoryName + " " + magnet.ColorName + " ");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
@@ -17,25 +19,45 @@ namespace Business.Concrete
             _magnetDal = magnetDal;
         }
 
-        public List<Magnet> GetAll()
+        public IResult Add(Magnet magnet)
         {
+            _magnetDal.Add(magnet);
+            return new Result(true,Messages.MagnetAdded);
+        }
+
+        public IDataResult<List<Magnet>> GetAll()
+        {
+            if (DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult<List<Magnet>>(Messages.MaintenanceTime);
+            }
             //iş kodları
-            return _magnetDal.GetAll();
+            return new SuccessDataResult<List<Magnet>>(_magnetDal.GetAll(),Messages.MagnetsListed);
         }
 
-        public List<Magnet> GetAllByCategoryId(int categoryId)
+        public IDataResult<List<Magnet>> GetAllByCategoryId(int categoryId)
         {
-            return _magnetDal.GetAll(m=>m.CategoryId==categoryId);
+            return new SuccessDataResult<List<Magnet>>(_magnetDal.GetAll(m=>m.CategoryId==categoryId));
         }
 
-        public List<Magnet> GetByPrice(decimal min, decimal max)
+        public IDataResult<Magnet> GetById(int magnetId)
         {
-            return _magnetDal.GetAll(m=>m.Price>=min && m.Price<=max);
+            return new SuccessDataResult<Magnet>(_magnetDal.Get(m => m.Id == magnetId));
         }
 
-        public List<MagnetDetailDto> GetMagnetDetails()
+        public IDataResult<List<Magnet>> GetByPrice(decimal min, decimal max)
         {
-            return _magnetDal.GetMagnetDetails();
+            return new SuccessDataResult<List<Magnet>>(_magnetDal.GetAll(m=>m.Price>=min && m.Price<=max));
+        }
+
+        public IDataResult<List<MagnetDetailDto>> GetMagnetDetails()
+        {
+
+            if (DateTime.Now.Hour == 00)
+            {
+                return new ErrorDataResult<List<MagnetDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<MagnetDetailDto>>(_magnetDal.GetMagnetDetails());
         }
     }
 }
