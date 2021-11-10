@@ -16,5 +16,8 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Magnet> Magnets { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Color> Colors { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

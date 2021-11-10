@@ -15,5 +15,7 @@ namespace Business.Abstract
         IDataResult<List<MagnetDetailDto>> GetMagnetDetails();
         IDataResult<Magnet> GetById(int magnetId);
         IResult Add(Magnet magnet);
+        IResult Delete(Magnet magnet);
+        IResult Update(Magnet magnet);
     }
 }

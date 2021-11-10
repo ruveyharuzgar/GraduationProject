@@ -10,7 +10,8 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public int ColorId { get; set; }
-        public decimal Price { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int Quantity { get; set; }
         public string Description { get; set; }
         //ürün açıklaması
         public string Text { get; set; }

@@ -16,10 +16,10 @@ namespace DataAccess.Concrete.InMemory
         {
             _magnets = new List<Magnet>
             {
-                new Magnet{Id=1,CategoryId=1,ColorId=1,Description="doğum",Price=10,Text="Rüveyha Doğdu" },
-                new Magnet{Id=2,CategoryId=3,ColorId=1,Description="düğün",Price=10,Text="ü evlendi" },
-                new Magnet{Id=3,CategoryId=2,ColorId=1,Description="diş",Price=10,Text="v diş çıkardı" },
-                new Magnet{Id=4,CategoryId=4,ColorId=1,Description="nişan",Price=10,Text="o nişanlandı" }
+                new Magnet{Id=1,CategoryId=1,ColorId=1,Description="doğum",UnitPrice=10,Text="Rüveyha Doğdu" },
+                new Magnet{Id=2,CategoryId=3,ColorId=1,Description="düğün",UnitPrice=10,Text="ü evlendi" },
+                new Magnet{Id=3,CategoryId=2,ColorId=1,Description="diş",UnitPrice=10,Text="v diş çıkardı" },
+                new Magnet{Id=4,CategoryId=4,ColorId=1,Description="nişan",UnitPrice=10,Text="o nişanlandı" }
 
             };
         }
@@ -67,7 +67,7 @@ namespace DataAccess.Concrete.InMemory
             magnetToUpdate.ColorId=magnet.ColorId;
             magnetToUpdate.CategoryId = magnet.CategoryId;
             magnetToUpdate.Description = magnet.Description;
-            magnetToUpdate.Price = magnet.Price;
+            magnetToUpdate.UnitPrice = magnet.UnitPrice;
             magnetToUpdate.Text = magnet.Text;
         }
     }

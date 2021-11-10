@@ -11,6 +11,7 @@ namespace Entities.Dtos
         public string CategoryName { get; set; }
         public string ColorName { get; set; }
         public string Text { get; set; }
-        public decimal Price { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -18,6 +18,17 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
+        public IResult Add(Category category)
+        {
+            _categoryDal.Add(category);
+            return new Result(true,Messages.CategoryAdded);
+        }
+
+        public IResult Delete(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(),Messages.CategoriesListed);
@@ -26,6 +37,11 @@ namespace Business.Concrete
         public IDataResult<Category> GetById(int categoryId)
         {
             return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.CategoryId==categoryId));
+        }
+
+        public IResult Update(Category category)
+        {
+            throw new NotImplementedException();
         }
     }
 }

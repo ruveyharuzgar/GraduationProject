@@ -25,6 +25,11 @@ namespace Business.Concrete
             return new Result(true,Messages.MagnetAdded);
         }
 
+        public IResult Delete(Magnet magnet)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDataResult<List<Magnet>> GetAll()
         {
             if (DateTime.Now.Hour==22)
@@ -47,7 +52,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Magnet>> GetByPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult<List<Magnet>>(_magnetDal.GetAll(m=>m.Price>=min && m.Price<=max));
+            return new SuccessDataResult<List<Magnet>>(_magnetDal.GetAll(m=>m.UnitPrice >=min && m.UnitPrice<=max));
         }
 
         public IDataResult<List<MagnetDetailDto>> GetMagnetDetails()
@@ -58,6 +63,11 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<MagnetDetailDto>>(Messages.MaintenanceTime);
             }
             return new SuccessDataResult<List<MagnetDetailDto>>(_magnetDal.GetMagnetDetails());
+        }
+
+        public IResult Update(Magnet magnet)
+        {
+            throw new NotImplementedException();
         }
     }
 }

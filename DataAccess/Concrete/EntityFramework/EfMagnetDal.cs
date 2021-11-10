@@ -25,7 +25,8 @@ namespace DataAccess.Concrete.EntityFramework
                              select new MagnetDetailDto
                              {
                                  MagnetId=m.Id,
-                                 Price=m.Price,
+                                 UnitPrice = m.UnitPrice,
+                                 Quantity = m.Quantity,
                                  Text=m.Text,
                                  CategoryName=ca.CategoryName,
                                  ColorName=co.ColorName

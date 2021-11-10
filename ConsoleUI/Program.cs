@@ -17,10 +17,15 @@ namespace ConsoleUI
         {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
 
-            foreach (var category in categoryManager.GetAll())
+            var result = categoryManager.GetAll();
+            if (result.Success==true)
             {
-                Console.WriteLine(category.CategoryName);
+                foreach (var category in result.Data)
+                {
+                    Console.WriteLine(category.CategoryName);
+                }
             }
+
         }
 
         private static void MagnetTest()
@@ -33,7 +38,7 @@ namespace ConsoleUI
             {
                 foreach (var magnet in result.Data)
                 {
-                    Console.WriteLine(magnet.Text + " " + magnet.Price + " " + magnet.CategoryName + " " + magnet.ColorName + " ");
+                    Console.WriteLine(magnet.Text + " " + magnet.UnitPrice + " " + magnet.CategoryName + " " + magnet.ColorName + " ");
                 }
             }
             else

@@ -7,9 +7,8 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IMagnetDal:IEntityRepository<Magnet>
+    public interface IOrderDal:IEntityRepository<Order>
     {
-        List<MagnetDetailDto> GetMagnetDetails();
-
+        List<OrderDetailDto> GetOrderDetails();
     }
 }
