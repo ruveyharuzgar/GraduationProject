@@ -7,8 +7,9 @@ namespace Business.Constants
 {
     public static class Messages
     {
+        public static string MaintenanceTime = "Maintenance Time :(";
+
         public static string MagnetAdded = "Magnet Added.";
-        public static string MaintenanceTime= "Maintenance Time :(";
         public static string MagnetsListed="Magnets Listed.";
 
         public static string CategoryAdded = "Category Added.";

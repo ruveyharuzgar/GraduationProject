@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Magnet>> GetAll()
         {
-            if (DateTime.Now.Hour==22)
+            if (DateTime.Now.Hour == 22)
             {
                 return new ErrorDataResult<List<Magnet>>(Messages.MaintenanceTime);
             }
