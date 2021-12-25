@@ -26,7 +26,8 @@ namespace Business.Concrete
 
         public IResult Delete(Order order)
         {
-            throw new NotImplementedException();
+            _orderDal.Delete(order);
+            return new Result(true, Messages.OrderDeleted);
         }
 
         public IDataResult<List<Order>> GetAll()
@@ -46,7 +47,8 @@ namespace Business.Concrete
 
         public IResult Update(Order order)
         {
-            throw new NotImplementedException();
+            _orderDal.Update(order);
+            return new Result(true, Messages.OrderUpdated);
         }
     }
 }

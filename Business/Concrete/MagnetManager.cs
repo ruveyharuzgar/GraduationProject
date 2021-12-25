@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -27,12 +28,13 @@ namespace Business.Concrete
         public IResult Add(Magnet magnet)
         {
             _magnetDal.Add(magnet);
-            return new Result(true,Messages.MagnetAdded);
+            return new SuccessResult(Messages.MagnetAdded);
         }
 
         public IResult Delete(Magnet magnet)
         {
-            throw new NotImplementedException();
+            _magnetDal.Delete(magnet);
+            return new SuccessResult(Messages.MagnetDeleted);
         }
 
         public IDataResult<List<Magnet>> GetAll()
@@ -70,9 +72,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<MagnetDetailDto>>(_magnetDal.GetMagnetDetails());
         }
 
+        [ValidationAspect(typeof(MagnetValidator))]
         public IResult Update(Magnet magnet)
         {
-            throw new NotImplementedException();
+            _magnetDal.Update(magnet);
+            return new SuccessResult(Messages.MagnetUpdated);
         }
+
     }
 }

@@ -16,8 +16,26 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+
+            builder.RegisterType<ColorManager>().As<IColorService>().SingleInstance();
+            builder.RegisterType<EfColorDal>().As<IColorDal>().SingleInstance();
+
+            builder.RegisterType<CustomerManager>().As<ICustomerService>().SingleInstance();
+            builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
+
+            builder.RegisterType<MagnetImageManager>().As<IMagnetImageService>().SingleInstance();
+            builder.RegisterType<EfMagnetImageDal>().As<IMagnetImageDal>().SingleInstance();
+
             builder.RegisterType<MagnetManager>().As<IMagnetService>().SingleInstance();
             builder.RegisterType<EfMagnetDal>().As<IMagnetDal>().SingleInstance();
+
+            builder.RegisterType<OrderManager>().As<IOrderService>().SingleInstance();
+            builder.RegisterType<EfOrderDal>().As<IOrderDal>().SingleInstance();
+
+            builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
+            builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
