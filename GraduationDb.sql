@@ -1,4 +1,4 @@
-﻿CREATE TABLE Magnets(
+CREATE TABLE Magnets(
 	Id int PRIMARY KEY IDENTITY(1,1),
 	CategoryId int,
 	ColorId int,
@@ -39,4 +39,12 @@ CREATE TABLE Orders(
 	ShippedDate datetime,
 	FOREIGN KEY (MagnetId) REFERENCES Magnets(Id),
 	FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
+)
+
+CREATE TABLE MagnetImages(
+	Id int PRIMARY KEY IDENTITY(1,1),
+	MagnetId int,
+	ImagePath nvarchar(MAX),
+	Date datetime,
+	FOREIGN KEY (MagnetId) REFERENCES Magnets(Id),
 )
