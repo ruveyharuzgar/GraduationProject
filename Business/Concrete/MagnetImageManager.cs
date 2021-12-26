@@ -42,11 +42,8 @@ namespace Business.Concrete
         [ValidationAspect(typeof(MagnetImageValidator))]
         public IResult Delete(MagnetImage magnetImage)
         {
-            IResult result = BusinessRules.Run(MagnetImageDelete(magnetImage));
-            if (result != null)
-            {
-                return result;
-            }
+            string oldPath = GetById(magnetImage.Id).Data.ImagePath;
+            FileHelper.Delete(oldPath);
             _magnetImageDal.Delete(magnetImage);
             return new SuccessResult(Messages.MagnetImageDeleted);
         }
@@ -80,25 +77,14 @@ namespace Business.Concrete
         [ValidationAspect(typeof(MagnetImageValidator))]
         public IResult Update(IFormFile file, MagnetImage magnetImage)
         {
-            magnetImage.ImagePath = FileHelper.Update(_magnetImageDal.Get(m => m.Id == magnetImage.Id).ImagePath, file);
+            MagnetImage oldMagnetImage = GetById(magnetImage.Id).Data;
+            magnetImage.ImagePath = FileHelper.Update(oldMagnetImage.ImagePath, file);
             magnetImage.Date = DateTime.Now;
+            magnetImage.MagnetId = oldMagnetImage.MagnetId;
             _magnetImageDal.Update(magnetImage);
             return new SuccessResult(Messages.MagnetImageUpdated);
         }
-        private IResult MagnetImageDelete(MagnetImage magnetImage)
-        {
-            try
-            {
-                var result = magnetImage.ImagePath;
-                File.Delete(result);
-            }
-            catch (Exception exception)
-            {
-                return new ErrorResult(exception.Message);
-            }
-
-            return new SuccessResult();
-        }
+     
         private IDataResult<List<MagnetImage>> CheckIfMagnetImageNull(int id)
         {
             try

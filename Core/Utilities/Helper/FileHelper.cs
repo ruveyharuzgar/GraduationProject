@@ -8,46 +8,39 @@ namespace Core.Utilities.Helper
 {
     public class FileHelper
     {
+        public static string directory = Directory.GetCurrentDirectory() + @"\wwwroot\";
+        public static string path = @"Images\";
         public static string Add(IFormFile file)
         {
-            var ImagePath = Path.GetTempFileName();
-            if (file.Length > 0)
+            string fileName = NewFileName(file);
+            if (!Directory.Exists(directory+path))
             {
-                using (var stream = new FileStream(ImagePath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
+                Directory.CreateDirectory(directory + path);
             }
-            var result = NewPath(file);
-            File.Move(ImagePath, result);
-            return result;
+            using (FileStream fileStream=File.Create(directory+path+fileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+            return (path + fileName).Replace("\\", "/");
         }
         public static void Delete(string path)
         {
-            File.Delete(path);
+            if (File.Exists(directory + path.Replace("/", "\\")) && Path.GetFileName(path) != "default.jpg")
+            {
+                File.Delete(directory + path.Replace("/", "\\"));
+            }
         }
         public static string Update(string ImagePath, IFormFile file)
         {
-            var result = NewPath(file);
-            if (ImagePath.Length > 0)
-            {
-                using (var stream = new FileStream(result, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-            }
-            File.Delete(ImagePath);
-            return result;
+            Delete(ImagePath);
+            return Add(file);
         }
-        public static string NewPath(IFormFile file)
+        public static string NewFileName(IFormFile file)
         {
-            FileInfo fileInfo = new FileInfo(file.FileName);
-            string fileExtension = fileInfo.Extension;
-            string path = Environment.CurrentDirectory + @"\wwwroot\Images";
-            var newPath = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
-            string result = $@"{path}\{newPath}";
-
-            return result;
+            string fileExtension = Path.GetExtension(file.FileName);
+            var newFileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
+            return newFileName;
         }
     }
 }
