@@ -67,7 +67,7 @@ CREATE TABLE [dbo].[OperationClaims]
     [Name] VARCHAR(250) NOT NULL
 )
 
-CREATE TABLE [dbo].[UserOperationClaim]
+CREATE TABLE [dbo].[UserOperationClaims]
 (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [UserId] INT NOT NULL, 
