@@ -17,5 +17,6 @@ namespace Business.Abstract
         IResult Add(Magnet magnet);
         IResult Delete(Magnet magnet);
         IResult Update(Magnet magnet);
+        IResult AddTransactionalTest(Magnet magnet);
     }
 }
